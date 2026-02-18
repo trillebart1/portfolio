@@ -71,7 +71,7 @@ export async function createProject(slug: string, data: ProjectInput): Promise<P
     return newProject;
 }
 
-export async function updateProject(slug: string, data: Partial<ProjectInput>): Promise<Project | null> {
+export async function updateProject(slug: string, data: Partial<Project>): Promise<Project | null> {
     const projects = await getProjects();
     const index = projects.findIndex(p => p.slug === slug);
 

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { writeFile } from 'fs/promises';
 import path from 'path';
-import { getProject } from '@/lib/projects';
+import { getProject, updateProject } from '@/lib/projects';
 
 export async function POST(request: Request, { params }: { params: Promise<{ slug: string }> }) {
     try {
@@ -21,7 +21,14 @@ export async function POST(request: Request, { params }: { params: Promise<{ slu
 
         const uploadDir = path.join(process.cwd(), 'public', 'projects', slug);
 
-        const savedFiles = [];
+        // Ensure directory exists (fs.mkdir is needed if not guaranteed, but usually projects have dirs)
+        // Better to use fs-extra or similar, but native fs.mkdir with recursive: true
+        const fs = require('fs');
+        if (!fs.existsSync(uploadDir)) {
+            fs.mkdirSync(uploadDir, { recursive: true });
+        }
+
+        const newImagePaths: string[] = [];
 
         for (const file of files) {
             const buffer = Buffer.from(await file.arrayBuffer());
@@ -29,10 +36,16 @@ export async function POST(request: Request, { params }: { params: Promise<{ slu
             const filepath = path.join(uploadDir, filename);
 
             await writeFile(filepath, buffer);
-            savedFiles.push(filename);
+
+            // Add public URL path
+            newImagePaths.push(`/projects/${slug}/${filename}`);
         }
 
-        return NextResponse.json({ success: true, savedFiles });
+        // Update project data
+        const updatedImages = [...project.images, ...newImagePaths];
+        await updateProject(slug, { images: updatedImages });
+
+        return NextResponse.json({ success: true, savedFiles: newImagePaths });
     } catch (error: any) {
         console.error('Upload error:', error);
         return NextResponse.json({ error: error.message }, { status: 500 });
