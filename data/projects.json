@@ -1,0 +1,39 @@
+[
+  {
+    "title": "test",
+    "year": "2026",
+    "location": "istanbul",
+    "software": "asdqw12",
+    "description": "asda",
+    "slug": "test",
+    "images": [
+      "/projects/test/Scene_1.jpg",
+      "/projects/test/Scene_10.jpg",
+      "/projects/test/Scene_11.jpg",
+      "/projects/test/Scene_12.jpg",
+      "/projects/test/Scene_13.jpg",
+      "/projects/test/Scene_2.jpg",
+      "/projects/test/Scene_3.jpg",
+      "/projects/test/Scene_4.jpg",
+      "/projects/test/Scene_5.jpg",
+      "/projects/test/Scene_6.jpg",
+      "/projects/test/Scene_7.jpg",
+      "/projects/test/Scene_8.jpg",
+      "/projects/test/Scene_9.jpg"
+    ],
+    "createdAt": "2026-02-18T18:56:14.047Z",
+    "category": "Residential test",
+    "hidden": false
+  },
+  {
+    "slug": "villa-horizon",
+    "title": "Villa Horizon",
+    "year": "2024",
+    "location": "Izmir, Turkey",
+    "software": "3ds Max, Corona, Photoshop",
+    "description": "A modern minimalist villa overlooking the Aegean sea. Designed with a focus on natural light and seamless indoor-outdoor living.",
+    "hidden": false,
+    "createdAt": "2024-02-17T12:00:00Z",
+    "coverImage": "/projects/villa-horizon/cover.svg"
+  }
+]
