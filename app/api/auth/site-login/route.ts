@@ -36,8 +36,8 @@ export async function POST(request: Request) {
 
             response.cookies.set('site_access', 'true', {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === 'production',
-                sameSite: 'strict',
+                secure: false, // process.env.NODE_ENV === 'production',
+                sameSite: 'lax',
                 path: '/',
                 expires: expires,
             });
