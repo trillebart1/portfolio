@@ -3,8 +3,24 @@
 :root {
   --background: #0a0a0a;
   --foreground: #ededed;
+}
+
+@theme {
   --font-sans: var(--font-inter);
   --font-serif: var(--font-playfair);
+}
+
+/* Force hide default cursor everywhere to use CustomCursor */
+* {
+  cursor: none !important;
+}
+
+/* Re-enable auto cursor for touch devices if needed, 
+   but for now we want custom cursor everywhere on desktop */
+@media (pointer: coarse) {
+  * {
+    cursor: auto !important;
+  }
 }
 
 body {
