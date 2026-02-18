@@ -19,11 +19,19 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             <Link href={`/projects/${project.slug}`} className="block w-full h-full relative">
                 {project.coverImage ? (
                     <Image
-                        src={project.coverImage}
+                        src={project.coverImage?.replace(/(\.[\w\d_-]+)$/i, '_thumb$1') || project.images?.[0]?.replace(/(\.[\w\d_-]+)$/i, '_thumb$1') || ''}
                         alt={project.title}
                         fill
                         className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100"
                         sizes="(max-width: 768px) 80vw, 45vw"
+                        unoptimized
+                        onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            const original = project.coverImage || project.images?.[0];
+                            if (original && target.src.indexOf('_thumb') !== -1) {
+                                target.src = original;
+                            }
+                        }}
                     />
                 ) : (
                     <div className="w-full h-full flex items-center justify-center text-neutral-700">

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { writeFile } from 'fs/promises';
 import path from 'path';
 import { getProject, updateProject } from '@/lib/projects';
+import sharp from 'sharp';
 
 export async function POST(request: Request, { params }: { params: Promise<{ slug: string }> }) {
     try {
@@ -21,8 +22,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ slu
 
         const uploadDir = path.join(process.cwd(), 'public', 'projects', slug);
 
-        // Ensure directory exists (fs.mkdir is needed if not guaranteed, but usually projects have dirs)
-        // Better to use fs-extra or similar, but native fs.mkdir with recursive: true
+        // Ensure directory exists
         const fs = require('fs');
         if (!fs.existsSync(uploadDir)) {
             fs.mkdirSync(uploadDir, { recursive: true });
@@ -35,10 +35,26 @@ export async function POST(request: Request, { params }: { params: Promise<{ slu
             const filename = file.name.replace(/[^a-zA-Z0-9.-]/g, '_'); // Sanitize
             const filepath = path.join(uploadDir, filename);
 
+            // Save original
             await writeFile(filepath, buffer);
-
-            // Add public URL path
             newImagePaths.push(`/projects/${slug}/${filename}`);
+
+            // Generate and save thumbnail
+            // Format: originalname_thumb.ext
+            const ext = path.extname(filename);
+            const name = path.basename(filename, ext);
+            const thumbFilename = `${name}_thumb${ext}`;
+            const thumbFilepath = path.join(uploadDir, thumbFilename);
+
+            try {
+                await sharp(buffer)
+                    .resize(800) // Resize to 800px width, auto height
+                    .jpeg({ quality: 80 }) // Compress slightly
+                    .toFile(thumbFilepath);
+            } catch (err) {
+                console.error('Thumbnail generation failed for', filename, err);
+                // Continue even if thumbnail fails, just won't have it
+            }
         }
 
         // Update project data

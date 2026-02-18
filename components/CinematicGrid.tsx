@@ -67,13 +67,22 @@ export default function CinematicGrid({ projects }: CinematicGridProps) {
                         <div className="aspect-[16/9] w-full overflow-hidden bg-[#121212] relative isolate">
                             {(project.coverImage || project.images?.[0]) ? (
                                 <Image
-                                    src={project.coverImage || project.images[0]}
+                                    <Image
+                                    src={(project.coverImage || project.images[0])?.replace(/(\.[\w\d_-]+)$/i, '_thumb$1')}
                                     alt={project.title}
                                     fill
                                     className="object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105 opacity-90 group-hover:opacity-100 will-change-transform"
                                     sizes="(max-width: 768px) 100vw, 50vw"
-                                    quality={100}
+                                    quality={85}
                                     unoptimized
+                                    onError={(e) => {
+                                        // Fallback to original if thumb doesn't exist (for old images)
+                                        const target = e.target as HTMLImageElement;
+                                        const original = project.coverImage || project.images?.[0];
+                                        if (original && target.src.indexOf('_thumb') !== -1) {
+                                            target.src = original;
+                                        }
+                                    }}
                                 />
                             ) : (
                                 <div className="w-full h-full flex items-center justify-center text-neutral-700">No Image</div>
