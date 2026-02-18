@@ -67,7 +67,6 @@ export default function CinematicGrid({ projects }: CinematicGridProps) {
                         <div className="aspect-[16/9] w-full overflow-hidden bg-[#121212] relative isolate">
                             {(project.coverImage || project.images?.[0]) ? (
                                 <Image
-                                    <Image
                                     src={(project.coverImage || project.images[0])?.replace(/(\.[\w\d_-]+)$/i, '_thumb$1')}
                                     alt={project.title}
                                     fill
