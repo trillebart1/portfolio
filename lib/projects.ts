@@ -35,6 +35,7 @@ export async function getProject(slug: string): Promise<Project | null> {
             const files = fs.readdirSync(projectDir);
             const images = files
                 .filter((file) => /\.(jpg|jpeg|png|webp|gif)$/i.test(file))
+                .filter((file) => !file.includes('_thumb'))
                 .map((file) => `/projects/${slug}/${file}`);
 
             return { ...project, images };
