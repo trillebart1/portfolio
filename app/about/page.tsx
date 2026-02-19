@@ -60,7 +60,7 @@ export default function AboutPage() {
                             </div>
                             <div className="text-gray-300 leading-relaxed font-light text-lg space-y-4">
                                 <p>
-                                    Altınbaş University graduate with a degree in Architecture and Interior Designer. I have over 5 years of professional experience in interior design, furniture production, and site management. I approach projects holistically, managing the process from concept development through turnkey delivery.
+                                    Altınbaş University graduate with a degree in Architecture. I have over 5 years of professional experience in interior design, furniture production, and site management. I approach projects holistically, managing the process from concept development through turnkey delivery.
                                 </p>
                                 <p>
                                     In office and retail projects, I oversee design, production detailing, and on-site implementation simultaneously. I prepare manufacturing drawings, define material decisions, and supervise the execution process on site.
