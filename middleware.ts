@@ -16,19 +16,8 @@ export function middleware(request: NextRequest) {
         }
     }
 
-    // 2. Site Protection (Client Access)
-    // Exclude login, api, static files, and admin routes (handled above)
-    const isPublicAsset = pathname.includes('.') || pathname.startsWith('/_next');
-    const isLogin = pathname === '/login';
-    const isApi = pathname.startsWith('/api');
-    const isAdmin = pathname.startsWith('/admin');
-
-    if (!isPublicAsset && !isLogin && !isApi && !isAdmin) {
-        const siteAccess = request.cookies.get('site_access');
-        if (!siteAccess || siteAccess.value !== 'true') {
-            return NextResponse.redirect(new URL('/login', request.url));
-        }
-    }
+    // 2. Site Protection (REMOVED: Public Access Allowed)
+    // visitors can access site without login
 
     return NextResponse.next();
 }
