@@ -86,7 +86,7 @@ export default function AboutPage() {
                                 <div className="relative pl-8 border-l border-neutral-800">
                                     <div className="absolute left-[-9px] top-1.5 size-4 rounded-full border-2 border-white bg-[#0a0a0a]"></div>
                                     <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-2">
-                                        <h3 className="text-xl font-semibold text-white">Architect (Concept & Production)</h3>
+                                        <h4 className="text-xl font-medium text-white">Architecture</h4>
                                         <span className="text-sm text-gray-500 font-mono">Oct 2024 — Present</span>
                                     </div>
                                     <h4 className="text-white text-sm font-medium mb-4">Esste Home Design, İstanbul</h4>
